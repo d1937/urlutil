@@ -1,9 +1,10 @@
 package urlutil
 
 import (
-	"github.com/d1937/stringsutil"
 	"net/url"
 	"strings"
+
+	"github.com/d1937/stringsutil"
 )
 
 const (
@@ -149,4 +150,16 @@ func TrimScheme(host string) string {
 	r := strings.TrimPrefix(host, HTTP+schemeSeparator)
 	r = strings.TrimPrefix(r, HTTPS+schemeSeparator)
 	return r
+}
+
+func UrlJoin(base, href string) string {
+	uri, err := url.Parse(href)
+	if err != nil {
+		return " "
+	}
+	baseUrl, err := url.Parse(base)
+	if err != nil {
+		return " "
+	}
+	return baseUrl.ResolveReference(uri).String()
 }
