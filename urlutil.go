@@ -163,3 +163,28 @@ func UrlJoin(base, href string) string {
 	}
 	return baseUrl.ResolveReference(uri).String()
 }
+
+// URLEncode urlencode()
+func URLEncode(str string) string {
+	return url.QueryEscape(str)
+}
+
+// URLDecode urldecode()
+func URLDecode(str string) (string, error) {
+	return url.QueryUnescape(str)
+}
+
+// Rawurlencode rawurlencode()
+func Rawurlencode(str string) string {
+	return strings.Replace(url.QueryEscape(str), "+", "%20", -1)
+}
+
+// Rawurldecode rawurldecode()
+func Rawurldecode(str string) (string, error) {
+	return url.QueryUnescape(strings.Replace(str, "%20", "+", -1))
+}
+
+// HTTPBuildQuery http_build_query()
+func HTTPBuildQuery(queryData url.Values) string {
+	return queryData.Encode()
+}
